@@ -19,6 +19,9 @@
   get_url:
     url: 'https://raw.githubusercontent.com/torbsch/setup/master/roles/common/files/.zshrc'
     dest: ~/.zshrc
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0644
     # Missing:
     # - Owner/chmod
     # - Install oh-my-zsh
