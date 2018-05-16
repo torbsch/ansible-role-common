@@ -22,8 +22,11 @@
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
     mode: 0644
+- name: Clone oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+  become_user: "{{ ansible_env.SUDO_USER }}"
     # Missing:
-    # - Owner/chmod
-    # - Install oh-my-zsh
     # - zsh theme
     # - ZSH as default
