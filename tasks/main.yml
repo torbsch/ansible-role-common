@@ -31,7 +31,6 @@
   get_url:
     url: https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
     dest: ~/.oh-my-zsh/themes/bullet-train.zsh-theme
-  notify: Sets attributes of bullet-train zsh theme
 - name: Sets attributes of bullet-train zsh theme
   file:
     path: ~/.oh-my-zsh/themes/bullet-train.zsh-theme
