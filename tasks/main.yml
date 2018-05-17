@@ -27,6 +27,10 @@
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: ~/.oh-my-zsh
   become_user: "{{ ansible_env.SUDO_USER }}"
+- name: Install powerline
+  package:
+    name: powerline
+    state: present  
 - name: Download bullet-train zsh theme
   get_url:
     url: https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
