@@ -38,5 +38,7 @@
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
     mode: 0644
-    # Missing:
-    # - ZSH as default
+- name: Set zsh as default shell for user
+  user:
+    name: "{{ ansible_env.SUDO_USER }}"
+    shell: /bin/zsh
