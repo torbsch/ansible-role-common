@@ -15,10 +15,10 @@
   package:
     name: zsh
     state: present
-- name: Fetch zsh dotfile
-  get_url:
-    url: 'https://raw.githubusercontent.com/torbsch/setup/master/roles/common/files/.zshrc'
-    dest: ~/.zshrc
+- name: Copy zsh configuration file
+  copy:
+    src: .zshrc
+    dest: /home/{{ ansible_env.SUDO_USER }}/.zshrc
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
     mode: 0644
@@ -27,6 +27,16 @@
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: ~/.oh-my-zsh
   become_user: "{{ ansible_env.SUDO_USER }}"
+- name: Download bullet-train zsh theme
+  get_url:
+    url: https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
+    dest: ~/.oh-my-zsh/themes/bullet-train.zsh-theme
+  notify: Sets attributes of bullet-train zsh theme
+- name: Sets attributes of bullet-train zsh theme
+  file:
+    path: ~/.oh-my-zsh/themes/bullet-train.zsh-theme
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0644
     # Missing:
-    # - zsh theme
     # - ZSH as default
