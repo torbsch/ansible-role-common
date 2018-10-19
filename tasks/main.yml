@@ -1,4 +1,80 @@
 ---
+- name: Add group for sudo user ("{{ sudo_user }}")
+  group:
+    name: "{{ sudo_user }}"
+    state: present
+
+- name: Add sudo user ("{{ sudo_user }}")
+  user:
+    name: "{{ sudo_user }}"
+    comment: sudo user
+    createhome: yes
+    groups: "sudo, {{ sudo_user }}"
+    group: "{{ sudo_user }}"
+    password: "{{ sudo_user_password | password_hash('sha512') }}"
+    state: present
+  when:
+     - sudo_user != ""
+
+- name: Set authorized SSH Keys from url for user ("{{ sudo_user }}")
+  authorized_key:
+    user: "{{ sudo_user }}"
+    key: "{{ sudo_user_ssh_key_url }}"
+    exclusive: yes
+    state: present
+  when: 
+    - sudo_user != "" 
+    - sudo_user_ssh_key_url != ""
+
+- name: Install ZSH
+  package:
+    name: zsh
+    state: present
+
+- name: Copy zsh configuration file
+  copy:
+    src: .zshrc
+    dest: /home/{{ sudo_user }}/.zshrc
+    owner: "{{ sudo_user }}"
+    group: "{{ sudo_user }}"
+    mode: 0775
+
+- name: Clone oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: "/home/{{ sudo_user }}/.oh-my-zsh"
+    force: yes
+
+- name: Sets attributes of zsh
+  file:
+    path: /home/{{ sudo_user }}/.oh-my-zsh
+    owner: "{{ sudo_user }}"
+    group: "{{ sudo_user }}"
+    mode: 0755
+    recurse: yes
+
+- name: Install powerline
+  package:
+    name: powerline
+    state: present
+
+- name: Download bullet-train zsh theme
+  get_url:
+    url: https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
+    dest: /home/{{ sudo_user }}/.oh-my-zsh/themes/bullet-train.zsh-theme
+
+- name: Sets attributes of bullet-train zsh theme
+  file:
+    path: /home/{{ sudo_user }}/.oh-my-zsh/themes/bullet-train.zsh-theme
+    owner: "{{ sudo_user }}"
+    group: "{{ sudo_user }}"
+    mode: 0644
+
+- name: Set zsh as default shell for user
+  user:
+    name: "{{ sudo_user }}"
+    shell: /bin/zsh
+
 - name: Install Vim
   package:
     name: vim
@@ -11,37 +87,3 @@
   package:
     name: htop
     state: present
-- name: Install ZSH
-  package:
-    name: zsh
-    state: present
-- name: Copy zsh configuration file
-  copy:
-    src: .zshrc
-    dest: /home/{{ ansible_env.SUDO_USER }}/.zshrc
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0644
-- name: Clone oh-my-zsh
-  git:
-    repo: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: ~/.oh-my-zsh
-  become_user: "{{ ansible_env.SUDO_USER }}"
-- name: Install powerline
-  package:
-    name: powerline
-    state: present  
-- name: Download bullet-train zsh theme
-  get_url:
-    url: https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
-    dest: ~/.oh-my-zsh/themes/bullet-train.zsh-theme
-- name: Sets attributes of bullet-train zsh theme
-  file:
-    path: ~/.oh-my-zsh/themes/bullet-train.zsh-theme
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0644
-- name: Set zsh as default shell for user
-  user:
-    name: "{{ ansible_env.SUDO_USER }}"
-    shell: /bin/zsh
