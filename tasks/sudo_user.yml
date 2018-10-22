@@ -1,0 +1,22 @@
+---
+- name: Add group for sudo user ("{{ sudo_user }}")
+  group:
+    name: "{{ sudo_user }}"
+    state: present
+
+- name: Add sudo user ("{{ sudo_user }}")
+  user:
+    name: "{{ sudo_user }}"
+    comment: sudo user
+    createhome: yes
+    groups: "sudo, {{ sudo_user }}"
+    group: "{{ sudo_user }}"
+    password: "{{ sudo_user_password | password_hash('sha512') }}"
+    state: present
+
+- name: Set authorized SSH Keys from url for user ("{{ sudo_user }}")
+  authorized_key:
+    user: "{{ sudo_user }}"
+    key: "{{ sudo_user_ssh_key_url }}"
+    exclusive: yes
+    state: present
