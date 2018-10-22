@@ -1,11 +1,9 @@
 ---
 - import_tasks: sudo_user.yml
-  when:
-    - sudo_user != ""
+  when: sudo_user != ""
 
 - import_tasks: zsh.yml
-  when:
-    - sudo_user != "" 
+  when: sudo_user != "" 
 
 - import_tasks: utility.yml
 
