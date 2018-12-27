@@ -11,7 +11,6 @@
     createhome: yes
     groups: "sudo, {{ sudo_user }}"
     group: "{{ sudo_user }}"
-    password: "{{ sudo_user_password | password_hash('sha512') }}"
     state: present
 
 - name: Set authorized SSH Keys from url for user ("{{ sudo_user }}")
