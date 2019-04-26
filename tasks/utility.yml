@@ -1,20 +1,20 @@
 ---
 - name: Install Git
-  package:
+  apt:
     name: git
     state: present
 
 - name: Install Vim
-  package:
+  apt:
     name: vim
     state: present
 
 - name: Install tmux
-  package:
+  apt:
     name: tmux
     state: present
 
 - name: Install htop
-  package:
+  apt:
     name: htop
     state: present
