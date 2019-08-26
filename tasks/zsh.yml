@@ -26,9 +26,14 @@
     mode: 0755
     recurse: yes
 
-- name: Install powerline
+- name: Install powerline-status
+  pip:
+    name: powerline-status
+    state: present
+
+- name: Install powerline fonts
   package:
-    name: powerline
+    name: fonts-powerline
     state: present
 
 - name: Download bullet-train zsh theme
