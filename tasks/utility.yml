@@ -3,18 +3,28 @@
   apt:
     name: git
     state: present
+  become: yes
 
 - name: Install Vim
   apt:
     name: vim
     state: present
+  become: yes
 
 - name: Install tmux
   apt:
     name: tmux
     state: present
+  become: yes
 
 - name: Install htop
   apt:
     name: htop
     state: present
+  become: yes
+
+- name: Install pip3
+  apt:
+    name: python3-pip
+    state: present
+  become: yes

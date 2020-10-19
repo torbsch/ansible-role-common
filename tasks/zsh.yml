@@ -7,22 +7,22 @@
 - name: Copy zsh configuration file
   copy:
     src: .zshrc
-    dest: /home/{{ sudo_user }}/.zshrc
-    owner: "{{ sudo_user }}"
-    group: "{{ sudo_user }}"
+    dest: /home/{{ ansible_user_id }}/.zshrc
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0775
 
 - name: Clone oh-my-zsh
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: "/home/{{ sudo_user }}/.oh-my-zsh"
+    dest: "/home/{{ ansible_user_id  }}/.oh-my-zsh"
     force: yes
 
 - name: Sets attributes of zsh
   file:
-    path: /home/{{ sudo_user }}/.oh-my-zsh
-    owner: "{{ sudo_user }}"
-    group: "{{ sudo_user }}"
+    path: /home/{{ ansible_user_id }}/.oh-my-zsh
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0755
     recurse: yes
 
@@ -35,20 +35,22 @@
   package:
     name: fonts-powerline
     state: present
+  become: yes
 
 - name: Download bullet-train zsh theme
   get_url:
     url: https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
-    dest: /home/{{ sudo_user }}/.oh-my-zsh/themes/bullet-train.zsh-theme
+    dest: /home/{{ ansible_user_id }}/.oh-my-zsh/themes/bullet-train.zsh-theme
 
 - name: Sets attributes of bullet-train zsh theme
   file:
-    path: /home/{{ sudo_user }}/.oh-my-zsh/themes/bullet-train.zsh-theme
-    owner: "{{ sudo_user }}"
-    group: "{{ sudo_user }}"
+    path: /home/{{ ansible_user_id }}/.oh-my-zsh/themes/bullet-train.zsh-theme
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0644
 
 - name: Set zsh as default shell for user
   user:
-    name: "{{ sudo_user }}"
+    name: "{{ ansible_user_id }}"
     shell: /bin/zsh
+  become: yes
