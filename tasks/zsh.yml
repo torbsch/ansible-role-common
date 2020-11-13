@@ -3,6 +3,7 @@
   package:
     name: zsh
     state: present
+  become: yes
 
 - name: Copy zsh configuration file
   copy:
