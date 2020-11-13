@@ -1,7 +1,3 @@
 ---
 - import_tasks: utility.yml
-
- # - import_tasks: sudo_user.yml
- # when: sudoUserExists == true
-
 - import_tasks: zsh.yml

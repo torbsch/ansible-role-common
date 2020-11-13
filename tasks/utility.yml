@@ -5,6 +5,12 @@
     state: present
   become: yes
 
+- name: Ensure tig is installed
+  apt:
+    name: tig
+    state: present
+  become: yes
+
 - name: Install Vim
   apt:
     name: vim
@@ -26,5 +32,11 @@
 - name: Install pip3
   apt:
     name: python3-pip
+    state: present
+  become: yes
+
+- name: Ensure Ranger is installed
+  apt:
+    name: ranger
     state: present
   become: yes
