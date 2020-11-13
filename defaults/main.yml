@@ -1,6 +1,0 @@
----
-# Sudo User
-sudoUserExists: no
-sudo_user: "default"
-sudo_user_password: default
-sudo_user_ssh_key_url: ""
