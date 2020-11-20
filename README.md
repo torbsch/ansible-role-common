@@ -15,6 +15,7 @@ An Ansible Role that installs tools on Linux Server/Workstations.
 None.
 
 ## Example Playbook
+``` ansible
 - hosts: localhost
   gather_facts: yes
   connection: local
