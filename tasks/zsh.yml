@@ -1,5 +1,5 @@
 ---
-- name: Install ZSH
+- name: Ensure ZSH is installed
   package:
     name: zsh
     state: present
@@ -27,12 +27,12 @@
     mode: 0755
     recurse: yes
 
-- name: Install powerline-status
+- name: Ensure powerline-status is installed
   pip:
     name: powerline-status
     state: present
 
-- name: Install powerline fonts
+- name: Ensure powerline fonts is installed
   package:
     name: fonts-powerline
     state: present

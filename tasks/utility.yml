@@ -1,5 +1,5 @@
 ---
-- name: Install Git
+- name: Ensure Git is installed
   apt:
     name: git
     state: present
@@ -11,25 +11,25 @@
     state: present
   become: yes
 
-- name: Install Vim
+- name: Ensure Vim is installed
   apt:
     name: vim
     state: present
   become: yes
 
-- name: Install tmux
+- name: Ensure tmux is installed
   apt:
     name: tmux
     state: present
   become: yes
 
-- name: Install htop
+- name: Ensure htop is installed
   apt:
     name: htop
     state: present
   become: yes
 
-- name: Install pip3
+- name: Ensure pip3 is installed
   apt:
     name: python3-pip
     state: present
