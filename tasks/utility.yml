@@ -40,3 +40,9 @@
     name: ranger
     state: present
   become: yes
+
+- name: Ensure lynx is installed
+  apt:
+    name: lynx
+    state: present
+  become: yes
