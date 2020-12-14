@@ -46,3 +46,10 @@
     name: lynx
     state: present
   become: yes
+
+- name: Ensure pandoc is installed
+  apt:
+    name: pandoc
+    state: present
+  become: yes
+
